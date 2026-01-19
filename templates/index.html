@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThermaX - Prediction AI</title>
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  
+    <!-- NEW CSS -->
+    <style>
+        /* Global Variables */
+:root {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #d1fae5;
+    --bg-light: #f0fdf4;
+    --bg-white: #ffffff;
+    --text-dark: #1f2937;
+    --text-gray: #6b7280;
+    --border-light: #e5e7eb;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-white);
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.logo-text h1 {
+    font-size: 1.5rem;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.logo-text p {
+    font-size: 0.9rem;
+    color: #10b981;
+    font-weight: 500;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #10b981;
+}
+
+.btn-primary {
+    background: #10b981;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #10b981;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid #10b981;
+}
+
+.btn-secondary:hover {
+    background: #f0fdf4;
+    transform: translateY(-2px);
+}
+
+/* Hero Section - WHITE BACKGROUND */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 5rem 5%;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-white);
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    color: #1f2937;
+    font-weight: 800;
+    line-height: 1.0;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content p {
+    font-size: 1.15rem;
+    color: #6b7280;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.hero-visual {
+    background: white;
+    padding: 1rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+.visual-content {
+    text-align: center;
+}
+
+.bars-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 250px;
+    margin: 2rem 0;
+}
+
+.bar {
+    width: 35px;
+    background: linear-gradient(180deg, #10b981 0%, #34d399 100%);
+    border-radius: 10px 10px 0 0;
+    animation: growBar 1.5s ease-out forwards;
+    transform-origin: bottom;
+}
+
+@keyframes growBar {
+    from { height: 0; }
+}
+
+.bar:nth-child(1) { height: 180px; animation-delay: 0.1s; }
+.bar:nth-child(2) { height: 200px; animation-delay: 0.2s; }
+.bar:nth-child(3) { height: 220px; animation-delay: 0.3s; }
+.bar:nth-child(4) { height: 190px; animation-delay: 0.4s; }
+.bar:nth-child(5) { height: 150px; animation-delay: 0.5s; }
+.bar:nth-child(6) { height: 130px; animation-delay: 0.6s; }
+
+.visual-title {
+    font-size: 1.8rem;
+    color: #10b981;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.visual-subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.badge-green {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-blue {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-purple {
+    background: #e9d5ff;
+    color: #6b21a8;
+}
+
+/* Indicators Section - GREEN BACKGROUND */
+.indicators-section {
+    padding: 5rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-badge {
+    display: inline-block;
+    background: white;
+    color: var(--primary-dark);
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--primary-light);
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.carousel-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 3rem;
+}
+
+.indicator-card {
+    min-width: 320px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.icon-green { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+.icon-blue { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+.icon-orange { background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); }
+.icon-red { background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%); }
+
+.indicator-card h3 {
+    font-size: 1.3rem;
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.indicator-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.carousel-nav:hover {
+    background: #10b981;
+}
+
+.carousel-nav:hover svg {
+    fill: white;
+}
+
+.carousel-nav svg {
+    width: 24px;
+    height: 24px;
+    fill: #1f2937;
+    transition: fill 0.3s;
+}
+
+.carousel-nav.prev { left: 0; }
+.carousel-nav.next { right: 0; }
+
+.carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #10b981;
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* Section Container */
+.prediction-container,
+.inverse-container-modern,
+.mof-info-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Section Headers */
+.section-header-clean {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.badge-clean {
+    display: inline-block;
+    background: white;
+    color: var(--primary-dark);
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--primary-light);
+}
+
+.section-header-clean h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.section-header-clean p {
+    font-size: 1.05rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* PREDICTION SECTION - WHITE BACKGROUND */
+.prediction-section {
+    padding: 5rem 5%;
+    background: var(--bg-white);
+}
+
+.prediction-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.section-title-clean {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+/* Form Clean */
+.form-clean {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.input-group-clean {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group-clean label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-group-clean input {
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: all 0.2s;
+    background: #f9fafb;
+}
+
+.input-group-clean input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.button-group-clean {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-predict,
+.btn-reset,
+.btn-generate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-predict,
+.btn-generate {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-predict:hover,
+.btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-reset {
+    background: white;
+    color: var(--text-gray);
+    border: 2px solid var(--border-light);
+}
+
+.btn-reset:hover {
+    background: #f9fafb;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Result Display */
+.result-section-clean {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--primary-light);
+}
+
+.result-display {
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-placeholder {
+    text-align: center;
+    color: var(--text-gray);
+}
+
+.result-placeholder svg {
+    width: 64px;
+    height: 64px;
+    stroke: var(--primary-light);
+    margin-bottom: 1rem;
+}
+
+.result-placeholder p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.result-active {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.result-main {
+    text-align: center;
+}
+
+.result-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-gray);
+    margin-bottom: 0.75rem;
+}
+
+.result-value {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    line-height: 1;
+}
+
+.result-unit {
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    margin-left: 0.5rem;
+}
+
+.result-confidence {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-gray);
+}
+
+.result-confidence strong {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+/* Contribution Card */
+.contribution-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.contribution-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.contribution-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary);
+}
+
+.contribution-label {
+    min-width: 120px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.contribution-bar-container {
+    flex: 1;
+    height: 32px;
+    background: var(--border-light);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+}
+
+.contribution-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 16px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* INVERSE PREDICTION - GREEN BACKGROUND */
+.inverse-section-modern {
+    padding: 5rem 5%;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+}
+
+.target-card-modern {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.target-input-modern {
+    margin-bottom: 1.5rem;
+}
+
+.target-input-modern label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.input-target {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-md);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-align: center;
+    background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+    transition: all 0.3s;
+}
+
+.input-target:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    transform: scale(1.01);
+}
+
+.input-hint {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+}
+
+/* Combinations Wrapper */
+.combinations-wrapper {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.combination-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.combination-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.combination-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.combination-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.rank-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.rank-number {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.rank-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.25rem 0;
+}
+
+.rank-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.improvement-tag {
+    padding: 0.5rem 1rem;
+    background: var(--primary-light);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Parameters Grid - 4 COLUMNS EQUAL SIZE */
+.parameters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.param-box {
+    background: #f9fafb;
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.param-box:hover {
+    border-color: var(--primary);
+    background: var(--bg-light);
+}
+
+.param-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-gray);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.param-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+/* MOF INFORMATION - WHITE BACKGROUND */
+.mof-info-section {
+    padding: 5rem 5%;
+    background: var(--bg-white);
+}
+
+.tab-pills-clean {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab-btn-clean {
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-gray);
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
+}
+
+.tab-btn-clean:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--bg-light);
+}
+
+.tab-btn-clean.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-color: var(--primary-dark);
+    color: white;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.tab-panel-clean {
+    display: none;
+    animation: fadeInUp 0.4s ease;
+}
+
+.tab-panel-clean.active {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.info-card-clean {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.info-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.info-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary);
+}
+
+.info-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* FAQ Section - GREEN BACKGROUND */
+.faq-section {
+    padding: 5rem 5%;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
+    width: 100%;
+}
+.faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faq-header h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.faq-header p {
+    font-size: 1.1rem;
+    color: #6b7280;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    color: #10b981;
+}
+
+.faq-icon {
+    width: 24px;
+    height: 24px;
+    fill: #6b7280;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    fill: #10b981;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 2rem;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 0 2rem 1.5rem 2rem;
+}
+
+.faq-answer p {
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Footer - DARKER BACKGROUND */
+footer {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    padding: 3rem 5% 1.5rem;
+    font-size: 1rem;
+    color: #d1fae5;
+}
+
+.footer-top {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    justify-content: space-between;
+}
+
+.footer-col {
+    flex: 1 1 220px;
+    min-width: 220px;
+}
+
+.footer-brand {
+    max-width: 320px;
+}
+
+.footer-brand .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.footer-brand .logo svg {
+    width: 28px;
+    height: 28px;
+    fill: #10b981;
+    flex-shrink: 0;
+}
+
+.footer-brand p {
+    font-size: 1rem;
+    color: #d1fae5;
+    line-height: 1.5;
+}
+
+.footer-col h4 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-col a {
+    color: #d1fae5;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover {
+    color: #10b981;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #d1fae5;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.contact-item svg {
+    width: 20px;
+    height: 20px;
+    fill: #10b981;
+    flex-shrink: 0;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(16, 185, 129, 0.3);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #d1fae5;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-bottom .links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-bottom a {
+    color: #d1fae5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-bottom a:hover {
+    color: #10b981;
+}
+
+/* Loading State */
+.loading-state {
+    text-align: center;
+    padding: 3rem;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--primary-light);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 3rem 5%;
+        gap: 2rem;
+    }
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .prediction-container,
+    .inverse-container-modern,
+    .mof-info-container {
+        padding: 0 1rem;
+    }
+    
+    .section-header-clean h2 {
+        font-size: 1.75rem;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .button-group-clean {
+        grid-template-columns: 1fr;
+    }
+    
+    .parameters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-value {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .bars-container {
+        height: 180px;
+    }
+    
+    .bar {
+        width: 25px;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .indicator-card {
+        min-width: 280px;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .faq-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .faq-question {
+        padding: 1.2rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .footer-brand .logo {
+        justify-content: center;
+    }
+    
+    .contact-item {
+        justify-content: center;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-bottom .links {
+        justify-content: center;
+    }
+}
+
+
+    /* Inverse Button Group */
+.inverse-button-group {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+.btn-reset-inverse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid var(--border-light);
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+    color: var(--text-gray);
+}
+
+.btn-reset-inverse:hover {
+    background: #f9fafb;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.indicator-card {
+    min-width: 320px;
+    max-width: 320px; /* Fixed width */
+    min-height: 280px; /* Fixed minimum height */
+    flex-shrink: 0;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.indicator-card h3 {
+    font-size: 1.3rem;
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.indicator-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    flex: 1; /* Allow text to fill remaining space */
+}
+    </style>
+
+
+
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <!-- <svg id="fi_10041542" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg" data-name="glyph"><path d="m55.95075 31.69075h-6.05775a19.65071 19.65071 0 0 1 -.26038 2.00256 16.03611 16.03611 0 0 1 -2.19281 5.93762l-1.67211 2.39307a1.41361 1.41361 0 0 0 -.23028.69086 8.5908 8.5908 0 0 1 -3.30426 6.10791l-3.28416 2.54323a5.3276 5.3276 0 0 1 -7.89008-1.67224 3.68067 3.68067 0 0 1 -.42047-2.40308 18.37323 18.37323 0 0 0 -.49139-5.17657 22.63262 22.63262 0 0 0 -.87091-2.87384q-1.81714.00054-3.63434.00018c-3.99341.401-6.96057-1.42859-6.54822-5.54736a9.72484 9.72484 0 0 1 .34033-2.00232h-8.83132a19.85331 19.85331 0 0 0 1.1014 2.00254 6.81508 6.81508 0 0 0 2.66345 2.78357 3.09151 3.09151 0 0 1 2.09266 2.91376v4.84619a3.07559 3.07559 0 0 1 -.52063 1.71222l-3.52454 5.21667c15.70106 17.90259 45.66331 6.81189 45.72856-17.28247a2.19841 2.19841 0 0 0 -2.19275-2.1925z"></path><path d="m14.45752 44.23683v-4.84619a1.13818 1.13818 0 0 0 -.781-1.04139c-2.39063-.89776-4.26508-4.36535-5.2768-6.6585a2.249 2.249 0 0 0 -2.54315 2.19281 26.03983 26.03983 0 0 0 5.22662 15.6701c.73212-1.05817 2.45057-3.63562 3.19416-4.726a1.029 1.029 0 0 0 .18017-.59083z"></path><path d="m24.44043 18.89418a39.97572 39.97572 0 0 1 -7.0191-4.44562 1.00285 1.00285 0 0 1 1.28167-1.54193c3.06457 2.56689 8.503 5.225 11.82519 6.71863.00415 3.1676-.003 8.87066 0 12.06549h-9.02159c-.70154 2.22644-.93213 5.44873 2.283 5.557l6.1878-.00988c.81928-.03406 1.0141.87719 1.24158 1.47186a22.60275 22.60275 0 0 1 1.39178 9.4021 3.26521 3.26521 0 0 0 5.11652 1.672l3.2843-2.54315a6.65391 6.65391 0 0 0 2.53326-4.696c-.02453-1.27832 1.63215-3.05493 2.25293-4.06531a15.7 15.7 0 0 0 2.08258-6.78863h-15.34959c.00007-.53955-.00006-2.57416 0-3.15412 4.34528-3.46942 9.58613-7.4389 14.69886-9.28192a1.00893 1.00893 0 1 1 .851 1.82239 39.32031 39.32031 0 0 0 -8.621 4.76611 10.80486 10.80486 0 0 0 8.90149-.28033 12.15665 12.15665 0 0 0 6.59839-10.934v-4.81624a1.00679 1.00679 0 0 0 -1.53193-.85107 16.00733 16.00733 0 0 1 -6.85882 2.303 9.99817 9.99817 0 0 0 -9.59229 8.33081l-.56079 3.46429c-1.52191 1.08142-2.87365 2.12281-3.88489 2.91376v-16.81154a1.0014 1.0014 0 0 0 -2.00256 0v8.35064c-.741-.3504-1.67224-.801-2.67352-1.31164-.04077-3.27393-3.19647-9.72974-9.99292-9.74243-.95111-.03015-3.11383-.37055-6.85864-2.38312-2.67383-.71253-2.27869 3.75781-.70093 8.03033 1.98716 5.49597 8.59556 8.47815 14.13822 6.78852z"></path></svg> -->
+                <!-- <i class="fi fi-rr-analyse"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                    <path d="m23.707,23.707c-.195.195-.451.293-.707.293s-.512-.098-.707-.293l-5.969-5.969c-1.725,1.412-3.927,2.262-6.324,2.262C4.486,20,0,15.514,0,10S4.486,0,10,0c1.758,0,3.487.463,5.001,1.338.478.277.642.889.364,1.367-.185.32-.521.499-.866.499-.17,0-.342-.043-.5-.134-1.209-.7-2.592-1.07-3.999-1.07C5.589,2,2,5.589,2,10c0,1.167.257,2.274.709,3.274l3.799-4.559c.362-.436.896-.7,1.462-.726.562-.025,1.122.188,1.524.591l1.928,1.928L20.237.34c.362-.419.994-.462,1.41-.103.418.361.465.993.104,1.411l-8.78,10.166c-.366.424-.897.679-1.458.7-.557.014-1.108-.195-1.505-.592l-1.928-1.928-4.263,5.075c1.468,1.788,3.695,2.93,6.183,2.93,4.411,0,8-3.589,8-8,0-.15-.005-.299-.013-.447-.029-.552.395-1.022.946-1.052.547-.04,1.022.394,1.052.945.01.183.015.368.015.553,0,2.398-.85,4.6-2.262,6.324l5.969,5.969c.391.391.391,1.023,0,1.414Z"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <h1>ThermaX</h1>
+                <p>Predict Zn-MOF</p>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#prediksi">Prediksi</a></li>
+            <li><a href="#edukasi">Edukasi</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#prediksi" class="btn-primary">Mulai Sekarang</a>
+    </nav>
+
+    <!-- HERO -->
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Accelerate Your Material Design.</h2>
+            <p>
+                MLP Neural Network untuk mempercepat desain material energi bersih. Prediksi thermal stability dan generate fitur optimal untuk aplikasi energi terbarukan.
+            </p>
+            <div class="hero-buttons">
+                <a href="#prediksi" class="btn-primary">Mulai Analisis</a>
+                <a href="#edukasi" class="btn-secondary">Pelajari Sistem</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-content">
+                <div class="bars-container">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <h3 class="visual-title">Quantitative Structure <br>Property Relationship</h3>
+                <p class="visual-subtitle">
+                    Empat deskriptor struktural yang dianalisis <br>
+                    menggunakan model Multilayer Perceptron
+                <div class="badges">
+                    <span class="badge badge-green">AI-Based</span>
+                    <span class="badge badge-blue">Data-Driven</span>
+                    <span class="badge badge-purple">Presisi Tinggi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDICATORS SECTION -->
+    <!-- INDICATORS SECTION -->
+<section class="indicators-section" id="edukasi">
+    <div class="section-header">
+        <span class="section-badge">Edukasi</span>
+        <h2>Indikator Struktural</h2>
+        <p>
+            Empat deskriptor struktural yang digunakan dalam sistem ThermaX untuk memprediksi kestabilan termal Zn-MOF.
+        </p>
+    </div>
+
+    <div class="carousel-container">
+        <button class="carousel-nav prev" id="prevBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+
+        <div class="carousel-wrapper" id="carousel">
+
+            <!-- nZn -->
+            <div class="indicator-card">
+                <div class="card-icon icon-green">🔬</div>
+                <h3>nZn</h3>
+                <p>
+                    Menunjukkan jumlah atom seng dalam kerangka Zn-MOF yang memengaruhi densitas koordinasi dan kestabilan termal material.
+                </p>
+            </div>
+
+            <!-- nN -->
+            <div class="indicator-card">
+                <div class="card-icon icon-blue">🧪</div>
+                <h3>nN</h3>
+                <p>
+                    Merepresentasikan jumlah atom nitrogen yang berperan dalam pembentukan ikatan koordinasi kuat di struktur MOF.
+                </p>
+            </div>
+
+            <!-- Lig -->
+            <div class="indicator-card">
+                <div class="card-icon icon-orange">⚛️</div>
+                <h3>Lig</h3>
+                <p>
+                    Menggambarkan fragmen ligan sebagai penghubung molekuler yang memengaruhi fleksibilitas dan kekuatan ikatan material.
+                </p>
+            </div>
+
+            <!-- Het -->
+            <div class="indicator-card">
+                <div class="card-icon icon-red">🧬</div>
+                <h3>Het</h3>
+                <p>
+                    Menunjukkan kontribusi interaksi antara atom hetero pada ligan dengan pusat logam terhadap kestabilan termal Zn-MOF.
+                </p>
+            </div>
+
+        </div>
+
+        <button class="carousel-nav next" id="nextBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="carousel-dots" id="dots"></div>
+</section>
+
+
+    <!-- FORM SECTION - ULTRA MODERN -->
+    <section class="prediction-section" id="prediksi">
+        <div class="prediction-container">
+            <!-- Header -->
+            <div class="section-header-clean">
+                <span class="badge-clean">Prediction Tool</span>
+                <h2>Prediksi Stabilitas Termal MOF</h2>
+                <p>Masukkan 4 parameter kunci untuk memprediksi thermal stability</p>
+            </div>
+
+            <!-- Main Prediction Card -->
+            <div class="prediction-card">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <h3 class="section-title-clean">Input Parameters</h3>
+                    <form id="predictionForm" class="form-clean">
+                        <div class="input-row">
+                            <div class="input-group-clean">
+                                <label for="x1">nZn</label>
+                                <input type="number" id="x1" step="0.1" placeholder="..." required>
+                            </div>
+                            <div class="input-group-clean">
+                                <label for="x2">nN</label>
+                                <input type="number" id="x2" step="1" placeholder="..." required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group-clean">
+                                <label for="x3">Lig</label>
+                                <input type="number" id="x3" step="0.1" placeholder="..." required>
+                            </div>
+                            <div class="input-group-clean">
+                                <label for="x4">Het</label>
+                                <input type="number" id="x4" step="0.1" placeholder="..." required>
+                            </div>
+                        </div>
+
+                        <div class="button-group-clean">
+                            <button type="submit" class="btn-predict">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" fill="currentColor"/>
+                                </svg>
+                                Predict Thermal Stability
+                            </button>
+                            <button type="button" class="btn-reset" id="resetFormBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"/>
+                                </svg>
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Result Section -->
+                <div class="result-section-clean">
+                    <h3 class="section-title-clean">Prediction Result</h3>
+                    <div class="result-display" id="resultDisplay">
+                        <div class="result-placeholder">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7v10c0 5 10 8 10 8s10-3 10-8V7l-10-5z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <p>Hasil prediksi akan muncul di sini</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Contribution -->
+            <div class="contribution-card" id="contributionCard" style="display: none;">
+                <h3 class="section-title-clean">Feature Contribution Analysis</h3>
+                <div class="contribution-grid" id="contributionGrid">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+    </section>
+        
+
+    
+    
+    <!-- INVERSE PREDICTION SECTION NEW -->
+    <!-- INVERSE PREDICTION - ULTRA MODERN -->
+    <!-- INVERSE PREDICTION - ULTRA MODERN -->
+    <section class="inverse-section-modern" id="inverse">
+        <div class="inverse-container-modern">
+            <div class="section-header-clean">
+                <span class="badge-clean">Optimization Tool</span>
+                <h2>Inverse Prediction</h2>
+                <p>Tentukan target thermal stability untuk mendapatkan kombinasi parameter optimal</p>
+            </div>
+
+            <div class="target-card-modern">
+                <div class="target-input-modern">
+                    <label for="targetTS">Target Thermal Stability (Log TS)</label>
+                    <input type="number" id="targetTS" class="input-target" placeholder="..." step="0.01">
+                    <!-- <span class="input-hint">Masukkan nilai Log TS yang diinginkan (bisa nilai negatif)</span> -->
+                </div>
+                <div class="inverse-button-group">
+                    <button class="btn-generate" id="generateBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Generate Optimal Combinations
+                    </button>
+                    <button class="btn-reset-inverse" id="resetInverseBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"/>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="combinations-wrapper" id="combinationsWrapper">
+            </div>
+        </div>
+    </section>
+
+
+   
+
+    <!-- MOF INFORMATION TABS NEW -->
+    <!-- MOF INFORMATION - ULTRA MODERN -->
+<section class="mof-info-section" id="tentang">
+    <div class="mof-info-container">
+        <div class="section-header-clean">
+            <span class="badge-clean">Knowledge Base</span>
+            <h2>Metal-Organic Framework</h2>
+            <p>Informasi komprehensif tentang MOF dan stabilitas termalnya</p>
+        </div>
+
+        <!-- Tab Pills -->
+        <div class="tab-pills-clean">
+            <button class="tab-btn-clean active" data-tab="general">MOF General</button>
+            <button class="tab-btn-clean" data-tab="znmof">Zn-MOF</button>
+            <button class="tab-btn-clean" data-tab="thermal">Stabilitas Termal</button>
+            <button class="tab-btn-clean" data-tab="aplikasi">Aplikasi Industri</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content-clean-wrapper">
+            <!-- MOF General -->
+            <div class="tab-panel-clean active" id="general">
+                <div class="info-card-clean">
+                    <div class="info-header">
+                        <div class="info-icon">⚛️</div>
+                        <h3>Metal-Organic Framework (MOF)</h3>
+                    </div>
+                    <p class="info-desc">
+                        MOF adalah material berpori kristalin yang terdiri dari ion logam atau kluster logam yang 
+                        terkoordinasi dengan ligan organik. Material ini memiliki luas permukaan sangat tinggi 
+                        (1000-10,000 m²/g) dan porositas yang dapat diatur sesuai kebutuhan aplikasi.
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Komponen</span>
+                            <span class="info-value">Ion logam + Ligan organik</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Luas Permukaan</span>
+                            <span class="info-value">1000-10,000 m²/g</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Porositas</span>
+                            <span class="info-value">50-90% volume</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Struktur</span>
+                            <span class="info-value">Kristalin 3D</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zn-MOF -->
+            <div class="tab-panel-clean" id="znmof">
+                <div class="info-card-clean">
+                    <div class="info-header">
+                        <div class="info-icon">🔬</div>
+                        <h3>Zinc-Based MOF (Zn-MOF)</h3>
+                    </div>
+                    <p class="info-desc">
+                        Zn-MOF merupakan salah satu jenis MOF yang paling umum dan stabil. Zinc memiliki fleksibilitas 
+                        koordinasi tinggi, kemudahan sintesis, dan stabilitas kimia yang baik. Zn-MOF seperti MOF-5 
+                        dan ZIF-8 telah banyak digunakan dalam berbagai aplikasi industri dan penelitian.
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Logam Pusat</span>
+                            <span class="info-value">Zn²⁺ (Zinc)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Contoh</span>
+                            <span class="info-value">MOF-5, ZIF-8</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Koordinasi</span>
+                            <span class="info-value">Tetrahedral/Oktahedral</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Stabilitas</span>
+                            <span class="info-value">Tinggi (200-400°C)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stabilitas Termal -->
+            <div class="tab-panel-clean" id="thermal">
+                <div class="info-card-clean">
+                    <div class="info-header">
+                        <div class="info-icon">🔥</div>
+                        <h3>Stabilitas Termal MOF</h3>
+                    </div>
+                    <p class="info-desc">
+                        Stabilitas termal adalah kemampuan MOF mempertahankan struktur dan fungsinya pada suhu tinggi. 
+                        Faktor utama meliputi kekuatan ikatan logam-ligan, rigiditas framework, dan densitas struktur. 
+                        MOF dengan stabilitas termal tinggi (>300°C) sangat penting untuk aplikasi industri.
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Range Stabil</span>
+                            <span class="info-value">200-500°C</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Faktor Utama</span>
+                            <span class="info-value">Ikatan M-L, Rigiditas</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Pengukuran</span>
+                            <span class="info-value">TGA, DSC, PXRD</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">MOF Terbaik</span>
+                            <span class="info-value">UiO-66, MIL-101</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aplikasi Industri -->
+            <div class="tab-panel-clean" id="aplikasi">
+                <div class="info-card-clean">
+                    <div class="info-header">
+                        <div class="info-icon">🏭</div>
+                        <h3>Aplikasi Industri MOF</h3>
+                    </div>
+                    <p class="info-desc">
+                        MOF dengan stabilitas termal tinggi memiliki aplikasi luas dalam industri energi, lingkungan, 
+                        dan kesehatan. Kemampuan penyimpanan gas, separasi molekul, dan katalisis menjadikan MOF 
+                        material kunci untuk teknologi berkelanjutan masa depan.
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Gas Storage</span>
+                            <span class="info-value">H₂, CH₄, CO₂</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Separasi</span>
+                            <span class="info-value">CO₂/N₂, C₂H₄/C₂H₆</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Katalisis</span>
+                            <span class="info-value">200-400°C</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Sensor</span>
+                            <span class="info-value">Deteksi gas & polutan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+        <div class="faq-header">
+            <span class="section-badge">FAQ</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Temukan jawaban atas pertanyaan umum terkait prediksi kestabilan termal Zn-MOF menggunakan QSPR dan machine learning</p>
+        </div>
+
+        <div class="faq-container">
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Apa itu QSPR untuk Zn-MOF?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        QSPR (Quantitative Structure–Property Relationship) adalah metode yang memodelkan hubungan antara deskriptor struktural Zn-MOF dan kestabilan termal material secara kuantitatif.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Bagaimana cara kerja model prediksi ini?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Model menggunakan empat deskriptor utama (nZn, nN, Lig, Het) sebagai input, kemudian machine learning memprediksi kestabilan termal Zn-MOF berdasarkan pola hubungan struktural dan properti material.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Apa arti hasil prediksi yang ditampilkan?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Hasil prediksi menunjukkan estimasi kestabilan termal Zn-MOF, termasuk nilai numerik yang merepresentasikan suhu maksimum material dapat mempertahankan integritas struktural sebelum degradasi.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Apakah data input aman dan valid?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Ya. Data deskriptor Zn-MOF yang digunakan hanya bersumber dari dataset penelitian dan literatur, serta diproses secara anonim untuk analisis prediksi kestabilan termal.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-col footer-brand">
+                <div class="logo"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                        <path d="m23.707,23.707c-.195.195-.451.293-.707.293s-.512-.098-.707-.293l-5.969-5.969c-1.725,1.412-3.927,2.262-6.324,2.262C4.486,20,0,15.514,0,10S4.486,0,10,0c1.758,0,3.487.463,5.001,1.338.478.277.642.889.364,1.367-.185.32-.521.499-.866.499-.17,0-.342-.043-.5-.134-1.209-.7-2.592-1.07-3.999-1.07C5.589,2,2,5.589,2,10c0,1.167.257,2.274.709,3.274l3.799-4.559c.362-.436.896-.7,1.462-.726.562-.025,1.122.188,1.524.591l1.928,1.928L20.237.34c.362-.419.994-.462,1.41-.103.418.361.465.993.104,1.411l-8.78,10.166c-.366.424-.897.679-1.458.7-.557.014-1.108-.195-1.505-.592l-1.928-1.928-4.263,5.075c1.468,1.788,3.695,2.93,6.183,2.93,4.411,0,8-3.589,8-8,0-.15-.005-.299-.013-.447-.029-.552.395-1.022.946-1.052.547-.04,1.022.394,1.052.945.01.183.015.368.015.553,0,2.398-.85,4.6-2.262,6.324l5.969,5.969c.391.391.391,1.023,0,1.414Z"/>
+                    </svg> 
+                    ThermaX
+                </div>
+                <p>
+                    Sistem prediksi kestabilan termal Zn-MOF berbasis QSPR dan machine learning
+                    yang memanfaatkan deskriptor struktural untuk mendukung penelitian material dan inovasi energi.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Fitur Utama</h4>
+                <ul>
+                    <li><a href="#">Prediksi Kestabilan Termal</a></li>
+                    <li><a href="#">Analisis 4 Deskriptor Struktural</a></li>
+                    <li><a href="#">Hasil Prediksi & Confidence</a></li>
+                    <li><a href="#">Visualisasi Material</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Sumber Informasi</h4>
+                <ul>
+                    <li><a href="#">Dokumentasi Penelitian</a></li>
+                    <li><a href="#">Metodologi QSPR</a></li>
+                    <li><a href="#">Referensi Dataset Zn-MOF</a></li>
+                    <li><a href="#">Publikasi & Paper</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Kontak</h4>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2v.01L12 13 4 6.01V6h16Z"/>
+                    </svg>
+                    <a href="mailto:znmof.research@gmail.com">znmof.research@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.21 11.36 11.36 0 0 0 3.55.57 1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.55 1 1 0 0 1-.21 1.11Z"/>
+                    </svg>
+                    <span>Institusi Akademik</span>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+                    </svg>
+                    <span>Indonesia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 Zn-MOF Predictor — QSPR & Thermal Stability Research.</div>
+            <div class="links">
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Syarat & Ketentuan</a>
+                <a href="#">Tentang Penelitian</a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script>
+    
+// FORM PREDICT
+/* =============================
+   PREDICTION FORM HANDLER
+   ============================= */
+document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        metal_loading: parseFloat(document.getElementById('x1').value),
+        temperature: parseFloat(document.getElementById('x2').value),
+        pressure: parseFloat(document.getElementById('x3').value),
+        porosity: parseFloat(document.getElementById('x4').value)
+    };
+    
+    const resultDisplay = document.getElementById('resultDisplay');
+    const contributionCard = document.getElementById('contributionCard');
+    
+    resultDisplay.innerHTML = `
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Memproses prediksi...</p>
+        </div>
+    `;
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Random thermal stability between 2.000 - 3.000
+        const randomTS = (Math.random() * (3.000 - 2.000) + 2.000).toFixed(3);
+        
+        // Random contributions that sum to 100%
+        const contributions = generateRandomContributions();
+        
+        const result = {
+            thermal_stability: randomTS,
+            confidence: (Math.random() * (99 - 90) + 90).toFixed(1),
+            contributions: contributions
+        };
+        
+        displayResult(result);
+        displayContributions(result.contributions);
+        
+    } catch (error) {
+        resultDisplay.innerHTML = `
+            <div class="result-placeholder">
+                <p style="color: #dc2626;">❌ Terjadi kesalahan dalam prediksi</p>
+            </div>
+        `;
+    }
+});
+
+// Function to generate random contributions that sum to 100%
+// Function to generate random contributions that sum to 100%
+// Each feature must be at least 10%
+function generateRandomContributions() {
+    const labels = ['nZn', 'nN', 'Lig', 'Het'];
+    let values = [];
+    let remaining = 100;
+    const minValue = 10; // Minimum 10% per feature
+    const numFeatures = 4;
+    
+    // Reserve minimum for all features
+    const reserved = minValue * numFeatures; // 40%
+    let available = remaining - reserved; // 60%
+    
+    // Distribute the available percentage randomly
+    for (let i = 0; i < numFeatures - 1; i++) {
+        const maxExtra = available - (numFeatures - i - 1) * 0; // Can take all remaining
+        const extra = Math.floor(Math.random() * (maxExtra + 1));
+        values.push(minValue + extra);
+        available -= extra;
+    }
+    
+    // Last value gets minimum plus whatever is left
+    values.push(minValue + available);
+    
+    // Shuffle to make it more random
+    values = values.sort(() => Math.random() - 0.5);
+    
+    // Verify total is 100%
+    const total = values.reduce((sum, val) => sum + val, 0);
+    if (total !== 100) {
+        // Adjust last value to ensure exactly 100%
+        values[values.length - 1] += (100 - total);
+    }
+    
+    return labels.map((name, index) => ({
+        name: name,
+        value: values[index]
+    }));
+}
+
+function displayResult(result) {
+    const resultDisplay = document.getElementById('resultDisplay');
+    resultDisplay.innerHTML = `
+        <div class="result-active">
+            <div class="result-main">
+                <div class="result-label">Predicted Thermal Stability</div>
+                <div class="result-value">
+                    ${result.thermal_stability}
+                    <span class="result-unit">Log TS</span>
+                </div>
+            </div>
+            <div class="result-confidence">
+                Confidence: <strong>${result.confidence}%</strong>
+            </div>
+        </div>
+    `;
+}
+
+function displayContributions(contributions) {
+    const contributionCard = document.getElementById('contributionCard');
+    const contributionGrid = document.getElementById('contributionGrid');
+    
+    contributionGrid.innerHTML = contributions.map(item => `
+        <div class="contribution-item">
+            <div class="contribution-label">${item.name}</div>
+            <div class="contribution-bar-container">
+                <div class="contribution-bar" style="width: ${item.value}%">
+                    ${item.value}%
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    contributionCard.style.display = 'block';
+}
+
+document.getElementById('resetFormBtn').addEventListener('click', function() {
+    document.getElementById('predictionForm').reset();
+    document.getElementById('resultDisplay').innerHTML = `
+        <div class="result-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7v10c0 5 10 8 10 8s10-3 10-8V7l-10-5z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <p>Hasil prediksi akan muncul di sini</p>
+        </div>
+    `;
+    document.getElementById('contributionCard').style.display = 'none';
+});
+
+    /* =========================
+    CAROUSEL INDICATORS - ONE CARD AT A TIME
+   ========================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("carousel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const dotsContainer = document.getElementById("dots");
+    const cards = document.querySelectorAll(".indicator-card");
+
+    let currentIndex = 0;
+    const cardWidth = 320;
+    const gap = 24;
+    const totalCardWidth = cardWidth + gap;
+    const maxIndex = cards.length - 1;
+
+    // Create dots
+    dotsContainer.innerHTML = '';
+    cards.forEach((_, index) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (index === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateCarousel() {
+        // Check container width to see how many cards fit
+        const containerWidth = carousel.parentElement.offsetWidth - 120;
+        const visibleCards = Math.floor(containerWidth / totalCardWidth);
+        
+        // Calculate actual max index based on visible cards
+        let actualMaxIndex = maxIndex;
+        if (visibleCards >= cards.length) {
+            actualMaxIndex = 0; // All cards visible, no scroll needed
+        } else {
+            actualMaxIndex = cards.length - visibleCards;
+        }
+        
+        // Clamp currentIndex
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex > actualMaxIndex) currentIndex = actualMaxIndex;
+
+        carousel.style.transform = `translateX(-${currentIndex * totalCardWidth}px)`;
+
+        // Update dots
+        const dots = dotsContainer.querySelectorAll(".dot");
+        dots.forEach((dot, index) => {
+            dot.classList.toggle("active", index === currentIndex);
+        });
+
+        // Update buttons
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= actualMaxIndex;
+        
+        prevBtn.style.opacity = currentIndex === 0 ? "0.3" : "1";
+        nextBtn.style.opacity = currentIndex >= actualMaxIndex ? "0.3" : "1";
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    nextBtn.addEventListener("click", () => {
+        const containerWidth = carousel.parentElement.offsetWidth - 120;
+        const visibleCards = Math.floor(containerWidth / totalCardWidth);
+        const actualMaxIndex = visibleCards >= cards.length ? 0 : cards.length - visibleCards;
+        
+        if (currentIndex < actualMaxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    prevBtn.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    window.addEventListener("resize", updateCarousel);
+    window.addEventListener("load", updateCarousel);
+    
+    updateCarousel();
+});
+    /* =========================
+    FAQ ACCORDION
+    ========================= */
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach(item => {
+        const question = item.querySelector(".faq-question");
+
+        question.addEventListener("click", () => {
+            // Close others
+            faqItems.forEach(i => {
+                if (i !== item) i.classList.remove("active");
+            });
+
+            // Toggle current
+            item.classList.toggle("active");
+        });
+    });
+
+    /* =============================
+   INVERSE PREDICTION HANDLER
+   ============================= */
+document.getElementById('generateBtn').addEventListener('click', async function() {
+    const targetTS = parseFloat(document.getElementById('targetTS').value);
+    
+    // Allow negative values, just check if it's a valid number
+    if (isNaN(targetTS)) {
+        alert('⚠️ Masukkan nilai Log TS yang valid');
+        return;
+    }
+    
+    const wrapper = document.getElementById('combinationsWrapper');
+    const btn = this;
+    
+    btn.disabled = true;
+    btn.innerHTML = `
+        
+        Generating...
+    `;
+    
+    wrapper.innerHTML = `
+        
+    `;
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Generate random combinations
+        const combinations = [
+            {
+                rank: 1,
+                predicted: (targetTS + (Math.random() * 0.2 - 0.1)).toFixed(3),
+                improvement: Math.floor(Math.random() * 30 + 10),
+                params: {
+                    metal_loading: (Math.random() * 5 + 3).toFixed(1),
+                    temperature: Math.floor(Math.random() * 100 + 200),
+                    pressure: Math.floor(Math.random() * 30 + 20),
+                    porosity: Math.floor(Math.random() * 20 + 70)
+                }
+            },
+            {
+                rank: 2,
+                predicted: (targetTS + (Math.random() * 0.3 - 0.15)).toFixed(3),
+                improvement: Math.floor(Math.random() * 20 - 10),
+                params: {
+                    metal_loading: (Math.random() * 5 + 3).toFixed(1),
+                    temperature: Math.floor(Math.random() * 100 + 200),
+                    pressure: Math.floor(Math.random() * 30 + 20),
+                    porosity: Math.floor(Math.random() * 20 + 70)
+                }
+            }
+        ];
+        
+        displayCombinations(combinations);
+        
+    } catch (error) {
+        wrapper.innerHTML = '<p style="text-align: center; color: #dc2626;">Terjadi kesalahan</p>';
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Generate Optimal Combinations
+        `;
+    }
+});
+
+// Reset Inverse Prediction
+document.getElementById('resetInverseBtn').addEventListener('click', function() {
+    document.getElementById('targetTS').value = '';
+    document.getElementById('combinationsWrapper').innerHTML = '';
+});
+
+function displayCombinations(combinations) {
+    const wrapper = document.getElementById('combinationsWrapper');
+    
+    wrapper.innerHTML = combinations.map(combo => `
+        <div class="combination-card">
+            <div class="combination-header">
+                <div class="rank-badge">
+                    <div class="rank-number">#${combo.rank}</div>
+                    <div class="rank-info">
+                        <h4>Optimal Combination ${combo.rank}</h4>
+                        <div class="rank-value">${combo.predicted} Log TS</div>
+                    </div>
+                </div>
+                <div class="improvement-tag">
+                    ${combo.improvement > 0 ? '+' : ''}${combo.improvement}% impact
+                </div>
+            </div>
+            <div class="parameters-grid">
+                <div class="param-box">
+                    <div class="param-label">nZn</div>
+                    <div class="param-value">${combo.params.metal_loading}</div>
+                </div>
+                <div class="param-box">
+                    <div class="param-label">nN</div>
+                    <div class="param-value">${combo.params.temperature}</div>
+                </div>
+                <div class="param-box">
+                    <div class="param-label">Lig</div>
+                    <div class="param-value">${combo.params.pressure}</div>
+                </div>
+                <div class="param-box">
+                    <div class="param-label">Het</div>
+                    <div class="param-value">${combo.params.porosity}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+
+
+    /* =============================
+   MOF TABS HANDLER
+   ============================= */
+document.querySelectorAll('.tab-btn-clean').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const targetTab = this.getAttribute('data-tab');
+        
+        document.querySelectorAll('.tab-btn-clean').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel-clean').forEach(p => p.classList.remove('active'));
+        
+        this.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+    });
+});
+
+
+    // BACK END INTI
+    document.getElementById("panganForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+        x1: parseFloat(document.getElementById("x1").value),
+        x2: parseFloat(document.getElementById("x2").value),
+        x3: parseFloat(document.getElementById("x3").value),
+        x4: parseFloat(document.getElementById("x4").value),
+        x5: parseFloat(document.getElementById("x5").value),
+        x6: parseFloat(document.getElementById("x6").value),
+        x7: parseFloat(document.getElementById("x7").value),
+        x8: parseFloat(document.getElementById("x8").value),
+        x9: parseFloat(document.getElementById("x9").value),
+        x10: parseFloat(document.getElementById("x10").value)
+    };
+
+    fetch("/predict", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        document.getElementById("score").innerText = result.prediction;
+        document.getElementById("confidence").innerText = result.confidence + "%";
+    })
+    .catch(error => {
+        console.error("Prediction error:", error);
+    });
+});
+
+
+
+    </script>
+
+</body>
+</html>
