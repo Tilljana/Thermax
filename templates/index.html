@@ -2,7 +2,9 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>ThermaX - Prediction AI</title>
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   
@@ -1253,26 +1255,168 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .prediction-container,
-    .inverse-container-modern,
-    .mof-info-container {
+    /* Navigation */
+    nav {
+        padding: 1rem 4%;
+        flex-wrap: wrap;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.2rem;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem 4%;
+        gap: 1.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .hero-visual {
+        padding: 0.75rem;
+        border-radius: 20px;
+    }
+    
+    .bars-container {
+        height: 150px;
+        gap: 0.75rem;
+    }
+    
+    .bar {
+        width: 20px;
+    }
+    
+    .visual-title {
+        font-size: 1.4rem;
+    }
+    
+    .visual-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    /* Indicators Section */
+    .indicators-section {
+        padding: 3rem 4%;
+    }
+    
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+    
+    .carousel-wrapper {
         padding: 0 1rem;
     }
     
+    .indicator-card {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: auto;
+    }
+    
+    .carousel-nav {
+        width: 36px;
+        height: 36px;
+        display: none;
+    }
+    
+    .carousel-dots {
+        margin-top: 1.5rem;
+    }
+    
+    /* Prediction Section */
+    .prediction-section {
+        padding: 2.5rem 4%;
+    }
+    
+    .prediction-container,
+    .inverse-container-modern,
+    .mof-info-container {
+        padding: 0;
+    }
+    
     .section-header-clean h2 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+    }
+    
+    .section-header-clean p {
+        font-size: 0.95rem;
+    }
+    
+    .prediction-card,
+    .target-card-modern,
+    .info-card-clean,
+    .contribution-card {
+        padding: 1.5rem;
+        border-radius: 16px;
     }
     
     .input-row {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
-    .button-group-clean {
+    .button-group-clean,
+    .inverse-button-group {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .btn-predict,
+    .btn-reset,
+    .btn-generate,
+    .btn-reset-inverse {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.95rem;
     }
     
     .parameters-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .param-box {
+        padding: 0.75rem;
+    }
+    
+    .param-label {
+        font-size: 0.7rem;
+    }
+    
+    .param-value {
+        font-size: 1.1rem;
     }
     
     .info-grid {
@@ -1280,56 +1424,130 @@ footer {
     }
     
     .result-value {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
-    .hero-content h2 {
-        font-size: 2rem;
+    .result-unit {
+        font-size: 1.2rem;
     }
     
-    .hero-buttons {
+    /* Inverse Section */
+    .inverse-section-modern {
+        padding: 2.5rem 4%;
+    }
+    
+    .input-target {
+        font-size: 1.5rem;
+        padding: 0.875rem 1rem;
+    }
+    
+    .combination-card {
+        padding: 1.25rem;
+    }
+    
+    .combination-header {
         flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
     }
     
-    .bars-container {
-        height: 180px;
+    .rank-badge {
+        width: 100%;
     }
     
-    .bar {
-        width: 25px;
+    .improvement-tag {
+        align-self: flex-start;
     }
     
-    .section-header h2 {
-        font-size: 2rem;
+    /* MOF Section */
+    .mof-info-section {
+        padding: 2.5rem 4%;
     }
     
-    .indicator-card {
-        min-width: 280px;
+    .tab-pills-clean {
+        gap: 0.5rem;
     }
     
-    .carousel-nav {
-        width: 40px;
-        height: 40px;
+    .tab-btn-clean {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .info-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .info-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.75rem;
+    }
+    
+    .info-header h3 {
+        font-size: 1.25rem;
+    }
+    
+    .info-desc {
+        font-size: 1rem;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        padding: 2.5rem 4%;
     }
     
     .faq-header h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    
+    .faq-header p {
+        font-size: 1rem;
     }
     
     .faq-question {
-        padding: 1.2rem 1.5rem;
-        font-size: 1rem;
+        padding: 1rem 1.25rem;
+        font-size: 0.95rem;
+    }
+    
+    .faq-answer {
+        padding: 0 1.25rem;
+    }
+    
+    .faq-item.active .faq-answer {
+        padding: 0 1.25rem 1rem 1.25rem;
+    }
+    
+    .faq-answer p {
+        font-size: 0.95rem;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 2rem 4% 1rem;
     }
     
     .footer-top {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+    
+    .footer-brand {
+        max-width: 100%;
     }
     
     .footer-brand .logo {
         justify-content: center;
+    }
+    
+    .footer-col {
+        flex: 1 1 100%;
+    }
+    
+    .footer-col h4 {
+        font-size: 1rem;
     }
     
     .contact-item {
@@ -1340,10 +1558,314 @@ footer {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        gap: 0.75rem;
     }
     
     .footer-bottom .links {
         justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra small devices */
+    nav {
+        padding: 0.75rem 3%;
+    }
+    
+    .logo-text h1 {
+        font-size: 1rem;
+    }
+    
+    .logo-text p {
+        font-size: 0.75rem;
+    }
+    
+    .hero {
+        padding: 1.5rem 3%;
+        gap: 1rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .badges {
+        gap: 0.5rem;
+    }
+    
+    .badge {
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .indicators-section {
+        padding: 2rem 3%;
+    }
+    
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem;
+    }
+    
+    .section-badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+    }
+    
+    .carousel-wrapper {
+        padding: 0 0.5rem;
+    }
+    
+    .indicator-card {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+    
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.75rem;
+    }
+    
+    .indicator-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .indicator-card p {
+        font-size: 0.9rem;
+    }
+    
+    .prediction-section,
+    .inverse-section-modern,
+    .mof-info-section {
+        padding: 2rem 3%;
+    }
+    
+    .section-header-clean h2 {
+        font-size: 1.3rem;
+    }
+    
+    .section-header-clean p {
+        font-size: 0.9rem;
+    }
+    
+    .prediction-card,
+    .target-card-modern,
+    .info-card-clean,
+    .contribution-card {
+        padding: 1.25rem;
+    }
+    
+    .section-title-clean {
+        font-size: 1.1rem;
+    }
+    
+    .input-group-clean label {
+        font-size: 0.9rem;
+    }
+    
+    .input-group-clean input {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn-predict,
+    .btn-reset,
+    .btn-generate {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .parameters-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .param-box {
+        padding: 0.65rem;
+    }
+    
+    .param-label {
+        font-size: 0.65rem;
+    }
+    
+    .param-value {
+        font-size: 1rem;
+    }
+    
+    .result-value {
+        font-size: 1.8rem;
+    }
+    
+    .result-unit {
+        font-size: 1rem;
+    }
+    
+    .result-confidence {
+        font-size: 1rem;
+    }
+    
+    .contribution-item {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+    
+    .contribution-label {
+        min-width: 100px;
+        font-size: 0.85rem;
+    }
+    
+    .contribution-bar {
+        font-size: 0.8rem;
+        padding-right: 0.75rem;
+    }
+    
+    .input-target {
+        font-size: 1.3rem;
+        padding: 0.75rem 0.875rem;
+    }
+    
+    .combination-card {
+        padding: 1rem;
+    }
+    
+    .rank-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+    
+    .rank-info h4 {
+        font-size: 1rem;
+    }
+    
+    .rank-value {
+        font-size: 1.3rem;
+    }
+    
+    .improvement-tag {
+        padding: 0.4rem 0.875rem;
+        font-size: 0.85rem;
+    }
+    
+    .tab-pills-clean {
+        gap: 0.4rem;
+    }
+    
+    .tab-btn-clean {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .info-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .info-desc {
+        font-size: 0.95rem;
+    }
+    
+    .info-item {
+        padding: 0.75rem;
+    }
+    
+    .info-label {
+        font-size: 0.8rem;
+    }
+    
+    .info-value {
+        font-size: 1rem;
+    }
+    
+    .faq-section {
+        padding: 2rem 3%;
+    }
+    
+    .faq-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .faq-header p {
+        font-size: 0.9rem;
+    }
+    
+    .faq-question {
+        padding: 0.9rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .faq-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .faq-answer {
+        padding: 0 1rem;
+    }
+    
+    .faq-item.active .faq-answer {
+        padding: 0 1rem 1rem 1rem;
+    }
+    
+    .faq-answer p {
+        font-size: 0.9rem;
+    }
+    
+    footer {
+        padding: 1.5rem 3% 0.75rem;
+    }
+    
+    .footer-brand .logo {
+        font-size: 1.1rem;
+    }
+    
+    .footer-brand .logo svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .footer-brand p {
+        font-size: 0.9rem;
+    }
+    
+    .footer-col h4 {
+        font-size: 0.95rem;
+    }
+    
+    .footer-col ul li {
+        margin-bottom: 0.6rem;
+    }
+    
+    .footer-col a {
+        font-size: 0.9rem;
+    }
+    
+    .contact-item {
+        font-size: 0.9rem;
+    }
+    
+    .contact-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .footer-bottom {
+        font-size: 0.85rem;
     }
 }
 
@@ -1404,6 +1926,35 @@ footer {
     line-height: 1.6;
     font-size: 0.95rem;
     flex: 1; /* Allow text to fill remaining space */
+}
+
+/* Mobile Touch Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    button, a, .carousel-nav, .faq-question {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-predict, .btn-reset, .btn-generate {
+        min-height: 48px;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Better touch targets */
+input, textarea, select {
+    font-size: 16px;
+}
+
+/* Prevent zoom on input focus */
+@media (max-width: 768px) {
+    input, textarea, select {
+        font-size: 16px !important;
+    }
 }
     </style>
 
